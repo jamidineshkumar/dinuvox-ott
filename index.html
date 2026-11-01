@@ -1,112 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080b09">
-<meta name="description" content="DinuVoX — your private picture house.">
-<title>DinuVoX — Private Picture House</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>DinuVoX — Your Private Cinema</title>
 <style>
-:root{color-scheme:dark;--gold:#d7b77e;--gold-hi:#f6dfad;--ink:#070a08;--muted:#a9a394}
-*{box-sizing:border-box}
-html{min-height:100%;background:var(--ink)}
-body{margin:0;min-height:100vh;min-height:100svh;display:grid;place-items:center;overflow:hidden;padding:34px 18px;background:
- radial-gradient(ellipse at 12% 16%,rgba(120,75,35,.22),transparent 34%),
- radial-gradient(ellipse at 88% 82%,rgba(18,75,53,.20),transparent 35%),
- radial-gradient(ellipse at 52% 48%,rgba(180,133,69,.07),transparent 58%),#070a08;
- color:#f5efe3;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-.ambient{position:fixed;inset:-20%;pointer-events:none;overflow:hidden;filter:blur(1px)}
-.ambient:before,.ambient:after{content:"";position:absolute;width:55vw;height:55vw;min-width:340px;min-height:340px;border:1px solid #d9b87924;border-radius:50%;box-shadow:0 0 0 28px #d9b8790b,0 0 0 72px #d9b87908,0 0 110px #d9b87912;animation:orbit 48s linear infinite}
-.ambient:before{left:-18%;top:-18%}.ambient:after{right:-18%;bottom:-22%;animation-direction:reverse;animation-duration:64s}
-.grain{position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");mix-blend-mode:soft-light}
-.scene{width:min(100%,900px);perspective:1500px;position:relative;z-index:1}
-.panel{position:relative;isolation:isolate;min-height:min(720px,calc(100svh - 68px));padding:clamp(34px,7vw,76px) clamp(24px,8vw,90px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;border:1px solid #d9b87950;border-radius:26px;background:linear-gradient(145deg,rgba(24,30,24,.94),rgba(10,15,12,.96) 58%,rgba(22,20,14,.95));box-shadow:0 42px 120px #000c,inset 0 1px #fff2,inset 0 -1px #000;transform-style:preserve-3d;transition:transform .22s ease}
-.panel:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(440px circle at var(--px,50%) var(--py,35%),rgba(240,204,140,.15),transparent 65%),linear-gradient(115deg,transparent 25%,#fff04 48%,transparent 70%);pointer-events:none}
-.panel:after{content:"";position:absolute;inset:12px;border:1px solid #d9b87916;border-radius:18px;pointer-events:none}
-.brand{position:relative;z-index:1;color:var(--gold-hi);font-family:Georgia,serif;font-size:clamp(25px,4vw,36px);font-weight:700;letter-spacing:5px;text-shadow:0 0 26px #d5ae6c35;transform:translateZ(45px)}
-.brand-line{width:64px;height:1px;margin:20px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 16px #e9c98b88}
-.eyebrow{margin-top:clamp(42px,7vh,68px);color:var(--gold);font-size:10px;font-weight:800;letter-spacing:4px;text-transform:uppercase;transform:translateZ(35px)}
-h1{margin:20px 0 0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(42px,7.5vw,78px);font-weight:500;line-height:.99;letter-spacing:-2.8px;text-wrap:balance;transform:translateZ(65px);text-shadow:0 14px 40px #0009}
-h1 em{display:block;margin-top:8px;color:var(--gold-hi);font-style:italic;background:linear-gradient(110deg,#a98149,#f6dfad 45%,#c39a5e 72%,#f3dba9);background-size:220% auto;background-clip:text;-webkit-background-clip:text;color:transparent;animation:goldSweep 7s linear infinite}
-.copy{max-width:510px;margin:25px auto 0;color:#bcb8ad;font-size:14px;line-height:1.8;transform:translateZ(28px)}
-.status{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:34px;color:#e6d1aa;font-size:11px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;transform:translateZ(42px)}
-.status-dot{width:7px;height:7px;border-radius:50%;background:#d7b77e;box-shadow:0 0 0 5px #d7b77e18,0 0 18px #f2d49a;animation:pulse 1.7s ease-in-out infinite}
-.orbit-loader{position:relative;width:82px;height:82px;margin:28px auto 0;transform:translateZ(55px)}
-.orbit-loader .ring{position:absolute;inset:0;border:1px solid #d7b77e28;border-radius:50%}
-.orbit-loader .ring:nth-child(2){inset:9px;border-style:dashed;border-color:#d7b77e70;animation:orbit 12s linear infinite}
-.orbit-loader .ring:nth-child(3){inset:20px;border-color:#d7b77e55;box-shadow:inset 0 0 20px #d7b77e12,0 0 20px #d7b77e12}
-.orbit-loader .spark{position:absolute;left:50%;top:-3px;width:7px;height:7px;border-radius:50%;background:#ffe3a8;box-shadow:0 0 14px 4px #d7b77e88;transform-origin:0 44px;animation:orbit 2.8s linear infinite}
-.orbit-loader.offline .spark{animation:none;opacity:.35}
-.actions{min-height:54px;margin-top:26px;transform:translateZ(38px)}
-.retry{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:164px;padding:15px 22px;border:1px solid #d7b77e77;border-radius:5px;background:linear-gradient(135deg,#d8b77e18,#d8b77e08);color:#f3dfb9;text-decoration:none;font-size:10px;font-weight:800;letter-spacing:2px;transition:transform .2s,box-shadow .2s,background .2s}
-.retry:hover{transform:translateY(-3px);background:#d7b77e20;box-shadow:0 12px 30px #d7b77e20, inset 0 0 20px #d7b77e12}
-.retry[hidden]{display:none}
-.foot{margin-top:clamp(36px,6vh,56px);color:#887b63;font-size:9px;letter-spacing:3px;text-transform:uppercase;transform:translateZ(22px)}
-.corner{position:absolute;width:38px;height:38px;border-color:#d7b77e88;opacity:.65}
-.corner.tl{top:22px;left:22px;border-top:1px solid;border-left:1px solid}.corner.tr{top:22px;right:22px;border-top:1px solid;border-right:1px solid}.corner.bl{bottom:22px;left:22px;border-bottom:1px solid;border-left:1px solid}.corner.br{bottom:22px;right:22px;border-bottom:1px solid;border-right:1px solid}
-@keyframes orbit{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:.65;box-shadow:0 0 0 4px #d7b77e15,0 0 12px #f2d49a}50%{opacity:1;box-shadow:0 0 0 8px #d7b77e08,0 0 22px #f2d49a}}
-@keyframes goldSweep{to{background-position:220% center}}
-@media(max-width:600px){body{padding:14px}.panel{min-height:calc(100svh - 28px);padding:38px 22px;border-radius:18px}.panel:after{inset:8px;border-radius:13px}.eyebrow{letter-spacing:2.5px;margin-top:42px}h1{letter-spacing:-1.6px}.copy{font-size:13px}.foot{letter-spacing:2px}.corner{width:24px;height:24px}.corner.tl{top:16px;left:16px}.corner.tr{top:16px;right:16px}.corner.bl{bottom:16px;left:16px}.corner.br{bottom:16px;right:16px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+*{box-sizing:border-box}html{background:#080808;color:#fff;font-family:Arial,Helvetica,sans-serif}body{margin:0;min-height:100vh;background:#080808}.nav{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,70px);position:absolute;z-index:5;top:0;width:100%;background:linear-gradient(#080808d9,transparent)}.brand{font-size:25px;font-weight:900;letter-spacing:3px;color:#e50914}.nav small{color:#ddd;letter-spacing:2px;font-size:10px}.hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:110px clamp(24px,7vw,100px) 70px;overflow:hidden;background:radial-gradient(ellipse at 78% 40%,#79151d88,transparent 32%),linear-gradient(90deg,#080808 0%,#080808eF 32%,#0808089c 65%,#08080855),linear-gradient(0deg,#080808 0%,transparent 45%),linear-gradient(135deg,#3a0d12,#171012 58%,#080808)}.hero:before{content:"";position:absolute;width:min(43vw,500px);aspect-ratio:2/3;right:10%;top:13%;border-radius:7px;border:1px solid #e5091466;background:radial-gradient(ellipse at 50% 30%,#e5091455,transparent 42%),linear-gradient(155deg,#5c111a,#151515 55%,#080808);box-shadow:0 35px 100px #000,0 0 80px #e5091422;transform:perspective(1100px) rotateY(-17deg) rotateZ(3deg)}.hero:after{content:"";position:absolute;inset:auto 0 0;height:190px;background:linear-gradient(transparent,#080808)}.content{position:relative;z-index:2;max-width:680px}.eyebrow{color:#ff626b;font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase}.content h1{font-size:clamp(48px,8vw,94px);line-height:.95;letter-spacing:-5px;margin:22px 0;font-weight:900}.content h1 span{display:block;color:#e50914}.desc{max-width:520px;color:#ddd;font-size:clamp(15px,1.7vw,19px);line-height:1.65}.status{display:flex;align-items:center;gap:10px;margin-top:28px;color:#eee;font-size:11px;letter-spacing:2px;text-transform:uppercase}.dot{width:8px;height:8px;background:#e50914;border-radius:50%;box-shadow:0 0 14px #e50914;animation:pulse 1.4s infinite}.loader{width:38px;height:38px;border:2px solid #ffffff25;border-top-color:#e50914;border-radius:50%;margin-top:22px;animation:spin .8s linear infinite}.retry{display:inline-block;margin-top:26px;padding:15px 24px;background:#e50914;color:#fff;text-decoration:none;font-size:11px;font-weight:900;letter-spacing:2px;border-radius:4px;box-shadow:0 8px 28px #e5091440}.retry:hover{background:#b80710}.retry[hidden]{display:none}.rows{position:relative;z-index:3;margin-top:-70px;padding:0 clamp(20px,5vw,70px) 55px}.rowtitle{font-size:20px;font-weight:800;margin:0 0 14px}.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.tile{height:105px;border-radius:4px;background:linear-gradient(140deg,#5b151b,#191919 70%);border:1px solid #ffffff14;box-shadow:0 12px 28px #0009;display:grid;place-items:center;color:#ffffffbb;font-weight:900;font-size:26px;letter-spacing:2px}.tile:nth-child(2){background:linear-gradient(140deg,#283a3a,#171717 70%)}.tile:nth-child(3){background:linear-gradient(140deg,#5b4020,#171717 70%)}.tile:nth-child(4){background:linear-gradient(140deg,#302044,#171717 70%)}.tile:nth-child(5){background:linear-gradient(140deg,#4a1a20,#171717 70%)}.foot{padding:26px clamp(20px,5vw,70px);color:#777;font-size:10px;letter-spacing:2px;border-top:1px solid #ffffff12}@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{opacity:.45;box-shadow:0 0 4px #e50914}}@media(max-width:700px){.hero{min-height:86vh;padding-top:100px}.hero:before{width:55vw;right:-8%;top:20%;opacity:.5}.content h1{font-size:54px;letter-spacing:-3px}.tiles{grid-template-columns:repeat(2,1fr)}.tile{height:78px}.rows{margin-top:-35px}}@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
-<div class="ambient" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
-<main class="scene">
-<section class="panel" id="panel" aria-live="polite">
-<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-<div class="brand">ᗪIᑎᑌᐯO᙭</div><div class="brand-line"></div>
-<div class="eyebrow">THE PRIVATE PICTURE HOUSE</div>
-<h1>Your stories.<em>Your private cinema.</em></h1>
-<p class="copy" id="message">Connecting you to the DinuVoX cinema…</p>
-<div class="status"><span class="status-dot" id="statusDot"></span><span id="statusText">Establishing secure connection</span></div>
-<div class="orbit-loader" id="loader" aria-label="Connecting"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="spark"></span></div>
-<div class="actions"><a class="retry" id="retry" href="/api/launch" hidden>TRY AGAIN <span aria-hidden="true">↗</span></a></div>
-<div class="foot">ONE LINK · YOUR PRIVATE COLLECTION</div>
-</section>
-</main>
+<header class="nav"><div class="brand">DINUVOX</div><small>THE PRIVATE PICTURE HOUSE</small></header>
+<main class="hero"><section class="content"><div class="eyebrow">YOUR PRIVATE STREAMING DESTINATION</div><h1>Your stories.<span>Your cinema.</span></h1><p class="desc" id="message">Connecting to your private DinuVoX collection. Your screening room is being prepared.</p><div class="status"><i class="dot" id="dot"></i><span id="status">Checking cinema availability</span></div><div class="loader" id="loader"></div><a class="retry" id="retry" href="/api/launch" hidden>TRY AGAIN</a></section></main>
+<section class="rows"><h2 class="rowtitle">A private collection. A bigger-screen feeling.</h2><div class="tiles"><div class="tile">DV / 01</div><div class="tile">CINEMA</div><div class="tile">SERIES</div><div class="tile">TONIGHT</div><div class="tile">PLAY</div></div></section>
+<footer class="foot">DINUVOX · ONE LINK · YOUR PRIVATE COLLECTION</footer>
 <script>
-(()=>{
- const panel=document.getElementById('panel');
- const message=document.getElementById('message');
- const statusText=document.getElementById('statusText');
- const statusDot=document.getElementById('statusDot');
- const loader=document.getElementById('loader');
- const retry=document.getElementById('retry');
- const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- if(!reduced && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
-   panel.addEventListener('pointermove',e=>{
-     const r=panel.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
-     panel.style.setProperty('--px',(x+.5)*100+'%');panel.style.setProperty('--py',(y+.5)*100+'%');
-     panel.style.transform='rotateX('+(-y*2.2)+'deg) rotateY('+(x*2.5)+'deg)';
-   });
-   panel.addEventListener('pointerleave',()=>{panel.style.transform='';});
- }
- async function connect(){
-   retry.hidden=true;loader.hidden=false;loader.classList.remove('offline');
-   statusDot.style.background='';statusText.textContent='Establishing secure connection';
-   message.textContent='Connecting you to the DinuVoX cinema…';
-   try{
-     const r=await fetch('/api/status',{cache:'no-store'});
-     if(!r.ok)throw new Error('Status request failed');
-     const d=await r.json();
-     if(d.online){
-       statusText.textContent='Cinema online · redirecting';
-       message.textContent='Your private screening room is ready. Opening the latest server address…';
-       window.location.replace('/api/launch');return;
-     }
-     statusText.textContent='Cinema currently offline';
-     message.textContent='Your private link is working, but the DinuVoX server is offline. Ask the owner to start the laptop server, then try again.';
-   }catch(e){
-     statusText.textContent='Connection unavailable';
-     message.textContent='We could not reach the cinema status service. Check your connection and try again.';
-   }
-   loader.hidden=true;loader.classList.add('offline');statusDot.style.background='#bd8b54';retry.hidden=false;
- }
- retry.addEventListener('click',e=>{e.preventDefault();connect();});
- connect();
-})();
+(async()=>{const m=document.getElementById('message'),s=document.getElementById('status'),l=document.getElementById('loader'),r=document.getElementById('retry');try{const q=await fetch('/api/status',{cache:'no-store'});if(!q.ok)throw Error();const d=await q.json();if(d.online){s.textContent='Cinema online · opening your collection';m.textContent='Your private screening room is ready.';location.replace('/api/launch');return}s.textContent='Cinema currently offline';m.textContent='Your permanent link is working, but the DinuVoX laptop server is offline. Ask the owner to start the server, then try again.'}catch(e){s.textContent='Connection unavailable';m.textContent='We could not check the cinema right now. Please try again shortly.'}l.hidden=true;r.hidden=false;document.getElementById('dot').style.background='#d7b77e';r.addEventListener('click',e=>{e.preventDefault();location.reload()})})();
 </script>
-</body>
-</html>
+</body></html>
