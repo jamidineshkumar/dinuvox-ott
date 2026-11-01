@@ -70,7 +70,7 @@ h1 em{display:block;margin-top:3px;font-style:normal;background:linear-gradient(
   retry.hidden=true;loader.hidden=false;statusText.textContent='Establishing secure connection';message.textContent='Connecting you to the DinuVoX cinema...';
   try{const response=await fetch('/api/status',{cache:'no-store'});if(!response.ok)throw Error('Status unavailable');const data=await response.json();
    if(data.online){statusText.textContent='Cinema online · redirecting';message.textContent='Your private screening room is ready. Opening the latest server address...';window.location.replace('/api/launch');return}
-   statusText.textContent='Cinema currently offline';message.textContent='Your permanent link is working, but the DinuVoX server is offline. Ask the owner to start the laptop server, then try again.';
+   statusText.textContent='Cinema currently offline';message.textContent='DinuVoX server is offline. Ask the owner to start the server, then try again.';
   }catch(e){statusText.textContent='Connection unavailable';message.textContent='We could not reach the cinema status service. Check your connection and try again.'}
   loader.hidden=true;retry.hidden=false;
  }
