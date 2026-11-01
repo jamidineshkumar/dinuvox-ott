@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090a12" />
+  <meta name="description" content="DinuVoX — your private picture house." />
+  <title>DinuVoX — Private Picture House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="wordmark" href="/" aria-label="DinuVoX home">ᗪIᑎᑌᐯO᙭</a>
+    <div class="top-meta"><span class="status-dot" id="statusDot"></span><span id="statusText">CONNECTING TO THE PROJECTION ROOM</span></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> THE PRIVATE PICTURE HOUSE · EST. 2026</div>
+        <h1>Stories worth<br><em>staying in for.</em></h1>
+        <p class="intro">A personal collection. A quieter kind of cinema.</p>
+        <div class="hero-actions">
+          <a class="primary-btn disabled" id="enterBtn" href="#" aria-disabled="true">ENTER THE CINEMA <span>↗</span></a>
+          <span class="availability" id="availability">Checking your media server…</span>
+        </div>
+      </div>
+      <div class="reel-art" aria-hidden="true"><div class="reel-ring"><i></i><i></i><i></i><i></i><b>DV</b></div><div class="reel-beam"></div><div class="reel-caption">PRIVATE<br>SCREENING<br>ROOM <span>NO. 001</span></div></div>
+      <div class="hero-foot"><span>YOUR COLLECTION, YOUR SCREEN</span><span>01 — DINUVOX</span></div>
+    </section>
+    <section class="library">
+      <div class="section-heading"><div><div class="eyebrow">THE COLLECTION</div><h2>On the shelf<span>.</span></h2></div><div class="library-count" id="libraryCount">SERVER OFFLINE</div></div>
+      <div class="offline-panel" id="offlinePanel"><div class="offline-icon">Ⅱ</div><div><h3>The projector is resting.</h3><p>Your DinuVoX website is online, but your laptop media server is currently unavailable. Start <strong>START_DINUVOX_PORTAL.bat</strong> on your laptop to reconnect your collection.</p></div></div>
+      <div class="catalog" id="catalog" hidden>
+        <div class="catalog-tabs"><button class="tab active" data-kind="movies">FEATURE FILMS <span id="movieCount">0</span></button><button class="tab" data-kind="series">WEB SERIES <span id="seriesCount">0</span></button></div>
+        <div class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="Find a title in your collection…" autocomplete="off"></div>
+        <div class="shelf-grid" id="shelfGrid"></div>
+      </div>
+    </section>
+  </main>
+  <footer><span class="footer-mark">ᗪIᑎᑌᐯO᙭</span><span>MADE FOR THE LOVE OF STORIES</span><span id="lastUpdated">PERSONAL MEDIA LIBRARY</span></footer>
+  <script src="/config.js"></script><script src="/app.js"></script>
+</body>
+</html>
