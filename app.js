@@ -13,8 +13,9 @@
   const seriesCount = document.getElementById("seriesCount");
   const lastUpdated = document.getElementById("lastUpdated");
   let currentKind = "movies", allMovies = [], allSeries = [], serverUrl = "";
-
   const cleanUrl = value => String(value || "").replace(/\/$/, "");
+  const encodePath = value => String(value || "").split("/").map(encodeURIComponent).join("/");
+
   function setOffline(message) {
     dot.className = "status-dot offline";
     statusText.textContent = "MEDIA SERVER OFFLINE";
@@ -90,20 +91,28 @@
     const filtered = items.filter(item => (item.title || item.name || "").toLowerCase().includes(term));
     shelfGrid.innerHTML = "";
     if (!filtered.length) {
-      shelfGrid.innerHTML = '<div class="shelf-card"><div class="shelf-title">No titles found</div><div class="shelf-meta">TRY ANOTHER SEARCH</div></div>';
+      const empty = document.createElement("div");
+      empty.className = "shelf-card";
+      empty.innerHTML = '<div class="shelf-title">No titles found</div><div class="shelf-meta">TRY ANOTHER SEARCH</div>';
+      shelfGrid.append(empty);
       return;
     }
     filtered.forEach(item => {
       const title = item.title || item.name || "Untitled";
       const meta = currentKind === "movies" ? ((item.genres || []).join(" · ") || item.extension || "FILM") : ((item.episode_count || 0) + " EPISODES");
-      const card = document.createElement("article");
+      const card = document.createElement("a");
       card.className = "shelf-card";
+      card.style.textDecoration = "none";
+      card.style.color = "inherit";
+      card.href = currentKind === "movies"
+        ? serverUrl + "/watch/" + encodePath(item.path)
+        : serverUrl + "/webseries?series=" + encodeURIComponent(item.name || "");
       const heading = document.createElement("div");
       heading.className = "shelf-title";
       heading.textContent = title;
       const details = document.createElement("div");
       details.className = "shelf-meta";
-      details.textContent = meta;
+      details.textContent = meta + "  ·  OPEN ↗";
       card.append(heading, details);
       shelfGrid.append(card);
     });
