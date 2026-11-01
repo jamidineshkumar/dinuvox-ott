@@ -1,21 +1,112 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080914"><title>DinuVoX — Private Picture House</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b09">
+<meta name="description" content="DinuVoX — your private picture house.">
+<title>DinuVoX — Private Picture House</title>
 <style>
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(ellipse at 20% 10%,#33235e 0,transparent 42%),radial-gradient(ellipse at 85% 90%,#06434c 0,transparent 38%),#080914;color:#f7f7ff;font-family:Inter,Segoe UI,Arial,sans-serif}.panel{width:min(620px,calc(100% - 36px));padding:clamp(28px,7vw,58px);border:1px solid #ffffff20;border-radius:24px;background:#15182dcc;box-shadow:0 30px 100px #0008;text-align:center}.brand{font-weight:900;letter-spacing:2px;font-size:23px}.eyebrow{margin-top:42px;color:#c9b8ff;text-transform:uppercase;letter-spacing:3px;font-size:10px;font-weight:800}h1{font-size:clamp(35px,7vw,58px);line-height:1.05;letter-spacing:-2px;margin:14px 0}h1 em{font-style:normal;background:linear-gradient(90deg,#b9a0ff,#75e7ff,#ff9bd4);background-clip:text;color:transparent}.copy{color:#a4a9c4;font-size:14px;line-height:1.7}.loader{width:34px;height:34px;border:2px solid #ffffff25;border-top-color:#b9a0ff;border-radius:50%;margin:28px auto 16px;animation:spin .9s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}a{display:inline-block;margin-top:14px;padding:13px 20px;border:1px solid #ffffff30;border-radius:10px;color:white;text-decoration:none;font-size:12px;letter-spacing:1px}a:hover{background:#ffffff12}.foot{margin-top:36px;color:#777d99;font-size:9px;letter-spacing:2px}
+:root{color-scheme:dark;--gold:#d7b77e;--gold-hi:#f6dfad;--ink:#070a08;--muted:#a9a394}
+*{box-sizing:border-box}
+html{min-height:100%;background:var(--ink)}
+body{margin:0;min-height:100vh;min-height:100svh;display:grid;place-items:center;overflow:hidden;padding:34px 18px;background:
+ radial-gradient(ellipse at 12% 16%,rgba(120,75,35,.22),transparent 34%),
+ radial-gradient(ellipse at 88% 82%,rgba(18,75,53,.20),transparent 35%),
+ radial-gradient(ellipse at 52% 48%,rgba(180,133,69,.07),transparent 58%),#070a08;
+ color:#f5efe3;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.ambient{position:fixed;inset:-20%;pointer-events:none;overflow:hidden;filter:blur(1px)}
+.ambient:before,.ambient:after{content:"";position:absolute;width:55vw;height:55vw;min-width:340px;min-height:340px;border:1px solid #d9b87924;border-radius:50%;box-shadow:0 0 0 28px #d9b8790b,0 0 0 72px #d9b87908,0 0 110px #d9b87912;animation:orbit 48s linear infinite}
+.ambient:before{left:-18%;top:-18%}.ambient:after{right:-18%;bottom:-22%;animation-direction:reverse;animation-duration:64s}
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");mix-blend-mode:soft-light}
+.scene{width:min(100%,900px);perspective:1500px;position:relative;z-index:1}
+.panel{position:relative;isolation:isolate;min-height:min(720px,calc(100svh - 68px));padding:clamp(34px,7vw,76px) clamp(24px,8vw,90px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;border:1px solid #d9b87950;border-radius:26px;background:linear-gradient(145deg,rgba(24,30,24,.94),rgba(10,15,12,.96) 58%,rgba(22,20,14,.95));box-shadow:0 42px 120px #000c,inset 0 1px #fff2,inset 0 -1px #000;transform-style:preserve-3d;transition:transform .22s ease}
+.panel:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(440px circle at var(--px,50%) var(--py,35%),rgba(240,204,140,.15),transparent 65%),linear-gradient(115deg,transparent 25%,#fff04 48%,transparent 70%);pointer-events:none}
+.panel:after{content:"";position:absolute;inset:12px;border:1px solid #d9b87916;border-radius:18px;pointer-events:none}
+.brand{position:relative;z-index:1;color:var(--gold-hi);font-family:Georgia,serif;font-size:clamp(25px,4vw,36px);font-weight:700;letter-spacing:5px;text-shadow:0 0 26px #d5ae6c35;transform:translateZ(45px)}
+.brand-line{width:64px;height:1px;margin:20px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 16px #e9c98b88}
+.eyebrow{margin-top:clamp(42px,7vh,68px);color:var(--gold);font-size:10px;font-weight:800;letter-spacing:4px;text-transform:uppercase;transform:translateZ(35px)}
+h1{margin:20px 0 0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(42px,7.5vw,78px);font-weight:500;line-height:.99;letter-spacing:-2.8px;text-wrap:balance;transform:translateZ(65px);text-shadow:0 14px 40px #0009}
+h1 em{display:block;margin-top:8px;color:var(--gold-hi);font-style:italic;background:linear-gradient(110deg,#a98149,#f6dfad 45%,#c39a5e 72%,#f3dba9);background-size:220% auto;background-clip:text;-webkit-background-clip:text;color:transparent;animation:goldSweep 7s linear infinite}
+.copy{max-width:510px;margin:25px auto 0;color:#bcb8ad;font-size:14px;line-height:1.8;transform:translateZ(28px)}
+.status{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:34px;color:#e6d1aa;font-size:11px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase;transform:translateZ(42px)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#d7b77e;box-shadow:0 0 0 5px #d7b77e18,0 0 18px #f2d49a;animation:pulse 1.7s ease-in-out infinite}
+.orbit-loader{position:relative;width:82px;height:82px;margin:28px auto 0;transform:translateZ(55px)}
+.orbit-loader .ring{position:absolute;inset:0;border:1px solid #d7b77e28;border-radius:50%}
+.orbit-loader .ring:nth-child(2){inset:9px;border-style:dashed;border-color:#d7b77e70;animation:orbit 12s linear infinite}
+.orbit-loader .ring:nth-child(3){inset:20px;border-color:#d7b77e55;box-shadow:inset 0 0 20px #d7b77e12,0 0 20px #d7b77e12}
+.orbit-loader .spark{position:absolute;left:50%;top:-3px;width:7px;height:7px;border-radius:50%;background:#ffe3a8;box-shadow:0 0 14px 4px #d7b77e88;transform-origin:0 44px;animation:orbit 2.8s linear infinite}
+.orbit-loader.offline .spark{animation:none;opacity:.35}
+.actions{min-height:54px;margin-top:26px;transform:translateZ(38px)}
+.retry{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:164px;padding:15px 22px;border:1px solid #d7b77e77;border-radius:5px;background:linear-gradient(135deg,#d8b77e18,#d8b77e08);color:#f3dfb9;text-decoration:none;font-size:10px;font-weight:800;letter-spacing:2px;transition:transform .2s,box-shadow .2s,background .2s}
+.retry:hover{transform:translateY(-3px);background:#d7b77e20;box-shadow:0 12px 30px #d7b77e20, inset 0 0 20px #d7b77e12}
+.retry[hidden]{display:none}
+.foot{margin-top:clamp(36px,6vh,56px);color:#887b63;font-size:9px;letter-spacing:3px;text-transform:uppercase;transform:translateZ(22px)}
+.corner{position:absolute;width:38px;height:38px;border-color:#d7b77e88;opacity:.65}
+.corner.tl{top:22px;left:22px;border-top:1px solid;border-left:1px solid}.corner.tr{top:22px;right:22px;border-top:1px solid;border-right:1px solid}.corner.bl{bottom:22px;left:22px;border-bottom:1px solid;border-left:1px solid}.corner.br{bottom:22px;right:22px;border-bottom:1px solid;border-right:1px solid}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.65;box-shadow:0 0 0 4px #d7b77e15,0 0 12px #f2d49a}50%{opacity:1;box-shadow:0 0 0 8px #d7b77e08,0 0 22px #f2d49a}}
+@keyframes goldSweep{to{background-position:220% center}}
+@media(max-width:600px){body{padding:14px}.panel{min-height:calc(100svh - 28px);padding:38px 22px;border-radius:18px}.panel:after{inset:8px;border-radius:13px}.eyebrow{letter-spacing:2.5px;margin-top:42px}h1{letter-spacing:-1.6px}.copy{font-size:13px}.foot{letter-spacing:2px}.corner{width:24px;height:24px}.corner.tl{top:16px;left:16px}.corner.tr{top:16px;right:16px}.corner.bl{bottom:16px;left:16px}.corner.br{bottom:16px;right:16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
-<body><main class="panel">
-<div class="brand">ᗪIᑎᑌᐯO᙭</div>
+<body>
+<div class="ambient" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+<main class="scene">
+<section class="panel" id="panel" aria-live="polite">
+<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+<div class="brand">ᗪIᑎᑌᐯO᙭</div><div class="brand-line"></div>
 <div class="eyebrow">THE PRIVATE PICTURE HOUSE</div>
-<h1>Your stories.<br><em>Your private cinema.</em></h1>
+<h1>Your stories.<em>Your private cinema.</em></h1>
 <p class="copy" id="message">Connecting you to the DinuVoX cinema…</p>
-<div class="loader" id="loader"></div>
-<a id="retry" href="/api/launch" hidden>TRY AGAIN</a>
+<div class="status"><span class="status-dot" id="statusDot"></span><span id="statusText">Establishing secure connection</span></div>
+<div class="orbit-loader" id="loader" aria-label="Connecting"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="spark"></span></div>
+<div class="actions"><a class="retry" id="retry" href="/api/launch" hidden>TRY AGAIN <span aria-hidden="true">↗</span></a></div>
 <div class="foot">ONE LINK · YOUR PRIVATE COLLECTION</div>
+</section>
 </main>
 <script>
-(async()=>{try{const r=await fetch('/api/status',{cache:'no-store'});const d=await r.json();if(d.online){location.replace('/api/launch');return}document.getElementById('message').textContent='Your private cinema is currently offline. The website address stays the same. Please ask the owner to start the DinuVoX server.';}catch(e){document.getElementById('message').textContent='The cinema could not be reached right now. Please try again shortly.';}document.getElementById('loader').hidden=true;document.getElementById('retry').hidden=false;})();
-</script></body></html>
+(()=>{
+ const panel=document.getElementById('panel');
+ const message=document.getElementById('message');
+ const statusText=document.getElementById('statusText');
+ const statusDot=document.getElementById('statusDot');
+ const loader=document.getElementById('loader');
+ const retry=document.getElementById('retry');
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!reduced && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+   panel.addEventListener('pointermove',e=>{
+     const r=panel.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+     panel.style.setProperty('--px',(x+.5)*100+'%');panel.style.setProperty('--py',(y+.5)*100+'%');
+     panel.style.transform='rotateX('+(-y*2.2)+'deg) rotateY('+(x*2.5)+'deg)';
+   });
+   panel.addEventListener('pointerleave',()=>{panel.style.transform='';});
+ }
+ async function connect(){
+   retry.hidden=true;loader.hidden=false;loader.classList.remove('offline');
+   statusDot.style.background='';statusText.textContent='Establishing secure connection';
+   message.textContent='Connecting you to the DinuVoX cinema…';
+   try{
+     const r=await fetch('/api/status',{cache:'no-store'});
+     if(!r.ok)throw new Error('Status request failed');
+     const d=await r.json();
+     if(d.online){
+       statusText.textContent='Cinema online · redirecting';
+       message.textContent='Your private screening room is ready. Opening the latest server address…';
+       window.location.replace('/api/launch');return;
+     }
+     statusText.textContent='Cinema currently offline';
+     message.textContent='Your private link is working, but the DinuVoX server is offline. Ask the owner to start the laptop server, then try again.';
+   }catch(e){
+     statusText.textContent='Connection unavailable';
+     message.textContent='We could not reach the cinema status service. Check your connection and try again.';
+   }
+   loader.hidden=true;loader.classList.add('offline');statusDot.style.background='#bd8b54';retry.hidden=false;
+ }
+ retry.addEventListener('click',e=>{e.preventDefault();connect();});
+ connect();
+})();
+</script>
+</body>
+</html>
