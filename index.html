@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080914"><title>DinuVoX — Private Picture House</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(ellipse at 20% 10%,#33235e 0,transparent 42%),radial-gradient(ellipse at 85% 90%,#06434c 0,transparent 38%),#080914;color:#f7f7ff;font-family:Inter,Segoe UI,Arial,sans-serif}.panel{width:min(620px,calc(100% - 36px));padding:clamp(28px,7vw,58px);border:1px solid #ffffff20;border-radius:24px;background:#15182dcc;box-shadow:0 30px 100px #0008;text-align:center}.brand{font-weight:900;letter-spacing:2px;font-size:23px}.eyebrow{margin-top:42px;color:#c9b8ff;text-transform:uppercase;letter-spacing:3px;font-size:10px;font-weight:800}h1{font-size:clamp(35px,7vw,58px);line-height:1.05;letter-spacing:-2px;margin:14px 0}h1 em{font-style:normal;background:linear-gradient(90deg,#b9a0ff,#75e7ff,#ff9bd4);background-clip:text;color:transparent}.copy{color:#a4a9c4;font-size:14px;line-height:1.7}.loader{width:34px;height:34px;border:2px solid #ffffff25;border-top-color:#b9a0ff;border-radius:50%;margin:28px auto 16px;animation:spin .9s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}a{display:inline-block;margin-top:14px;padding:13px 20px;border:1px solid #ffffff30;border-radius:10px;color:white;text-decoration:none;font-size:12px;letter-spacing:1px}a:hover{background:#ffffff12}.foot{margin-top:36px;color:#777d99;font-size:9px;letter-spacing:2px}
+</style>
+</head>
+<body><main class="panel">
+<div class="brand">ᗪIᑎᑌᐯO᙭</div>
+<div class="eyebrow">THE PRIVATE PICTURE HOUSE</div>
+<h1>Your stories.<br><em>Your private cinema.</em></h1>
+<p class="copy" id="message">Connecting you to the DinuVoX cinema…</p>
+<div class="loader" id="loader"></div>
+<a id="retry" href="/api/launch" hidden>TRY AGAIN</a>
+<div class="foot">ONE LINK · YOUR PRIVATE COLLECTION</div>
+</main>
+<script>
+(async()=>{try{const r=await fetch('/api/status',{cache:'no-store'});const d=await r.json();if(d.online){location.replace('/api/launch');return}document.getElementById('message').textContent='Your private cinema is currently offline. The website address stays the same. Please ask the owner to start the DinuVoX server.';}catch(e){document.getElementById('message').textContent='The cinema could not be reached right now. Please try again shortly.';}document.getElementById('loader').hidden=true;document.getElementById('retry').hidden=false;})();
+</script></body></html>
